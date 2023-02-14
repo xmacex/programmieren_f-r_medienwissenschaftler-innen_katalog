@@ -1,0 +1,24 @@
+body {
+    background-color: #DCD6F7;
+}
+
+.explorations {
+    position: fixed;
+    height: 100%;
+    width: 5%;
+    overflow-x: hidden;
+}
+
+.exploration .overlay {
+    position:   absolute;
+    overlow:    hidden;
+    transition: 0.2s;
+    width:      0%;
+    display:    hide;
+    left:       66%;
+    background-color: darkblue;
+}
+
+.exploration:hover .overlay {
+    width: 100%;
+}
