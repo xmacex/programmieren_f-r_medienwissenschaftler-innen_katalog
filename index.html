@@ -3,30 +3,149 @@
   <head>
     <title>Katalog</title>
     <link href="stylesheet.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js"></script>
+    <script language="javascript" type="text/javascript" src="katalog.js"></script>
   </head>
 
   <body>
     <section id="explorations">
-      <div class="exploration">
-        <div class="overlay">
-          <h3>Student 1</h3>
-          <p>I made this.</p>
-        </div>
-      </div>
-
-      <div class="exploration">
-        <div class="overlay">
-          <h3>Student 2</h3>
-          <p>I made this.</p>
-        </div>
-      </div>
-
-      <div class="exploration">
-        <div class="overlay">
-          <h3>Student 3</h3>
-          <p>I made this.</p>
-        </div>
+      <!-- <button id="exploration-1" class="exploration" onclick="show_details(1)">e1</button> -->
+      <!-- <button id="exploration-2" class="exploration" onclick="show_details(2)">e2</button> -->
+      <!-- <button id="exploration-3" class="exploration" onclick="show_details(3)">e3</button> -->
+      <!-- <button id="exploration-4" class="exploration" onclick="show_details(4)">e4</button> -->
+    </section>
+    
+    <section id="details-panel">
+      <button id="close-button" onclick="close_details_overview()">╳</button>
+      <div id="detail-content">
+        <div id="name"><h2>name</h2></div>
+        <div id="screenshot"><img src="" /></div>
+        <div id="essay"></div>
+        <div id="code"><pre><code></code></pre></div>
       </div>
     </section>
+
+    <script>
+      data = {
+          "0": {
+              "name": "Exploration 0",
+              "screenshot": "screenshot.png",
+              "essay": `<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+          <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>`,
+              "code": `const DEBUG = true;
+
+present_students = [
+  "Student A",
+  "Student B",
+  "Student C"
+];
+
+shapes = [0.30, 0.30, 0.50, 0.10, 0.40, 0.60, 0.30, 0.25];
+
+next = null;
+noisyness = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  textFont("Georgia");
+}
+
+function draw() {
+  background(40);
+  update_noise();
+  draw_noise(noisyness);
+  draw_motif();
+  draw_reveal(next);
+  stroke(50);
+}
+
+function choose_one(roster) {
+  shuffle(roster, true);
+  the_chosen_one = roster.pop();
+  if (DEBUG) {print("Next is " + the_chosen_one);}
+  if (DEBUG) {print("Left are "+ roster);}
+  return the_chosen_one;
+}
+
+function mouseClicked() {
+  next = choose_one(present_students);
+  noisyness = 10000;
+}
+
+function update_noise() {
+  if (noisyness > 0) {
+    noisyness = noisyness - 100;
+  }
+}
+
+function draw_motif() {
+  push();
+  translate(width/2, height/2);
+  blendMode(EXCLUSION);
+  shapes.forEach(s => {
+    fill(color(30, 30, 10, 125));
+    noStroke();
+    rotate(frameCount/400 * s);
+    size = width * s;
+    rect(-size/2, -size/2, size, size);
+  })
+  pop();
+}
+
+function draw_noise(noisyness) {
+  stroke("white");
+  for(let i=0; i<noisyness; i++) {
+    point(random(width), random(height));
+  }
+}
+
+function draw_reveal(student) {
+  if (next) {
+    translate(width/2, height/2);
+    fill("white");
+    textSize(40);
+    textAlign(CENTER, CENTER);
+    text(student, 0, 0);
+  }
+}`
+          },
+          "1": {
+              "name": "Exploration 1"
+          },
+          "2": {
+              "name": "Exploration 2"
+          },
+          "3": {
+              "name": "Exploration 3"
+          }
+      }
+      
+      function show_details(exploration, event) {
+          console.log("Opening panel");
+          console.log(exploration);
+          let panel = document.querySelector("#details-panel");
+          panel.style.left="50%";
+          let close_button = document.querySelector("#details-panel #close-button")
+          close_button.style.display = "block";
+
+          let name = document.querySelector("#details-panel #name h2");
+          name.textContent = data[exploration].name;
+          let screenshot = document.querySelector("#details-panel #screenshot img")
+          screenshot.src = data[exploration].screenshot;
+          let essay = document.querySelector("#details-panel #essay");
+          essay.innerHTML = data[exploration].essay;
+          let code = document.querySelector("#details-panel #code code");
+          code.innerHTML = data[exploration].code;
+      }
+      
+      function close_details_overview(e) {
+          console.log("Closing panel");
+          let panel = document.querySelector("#details-panel");
+          panel.style.left="98%";
+          let close_button = document.querySelector("#details-panel #close-button")
+          close_button.style.display = "none";
+      }
+    </script>
+
   </body>
 </html>

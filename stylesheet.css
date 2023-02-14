@@ -1,24 +1,63 @@
 body {
     background-color: #DCD6F7;
+    margin: 0;
 }
 
-.explorations {
+#explorations {
+    padding: 5%;
     position: fixed;
     height: 100%;
     width: 5%;
-    overflow-x: hidden;
 }
 
-.exploration .overlay {
-    position:   absolute;
-    overlow:    hidden;
-    transition: 0.2s;
-    width:      0%;
-    display:    hide;
-    left:       66%;
-    background-color: darkblue;
+.exploration {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
 }
 
-.exploration:hover .overlay {
-    width: 100%;
+#details-panel {
+    position:     absolute;
+    transition:   0.2s;
+    height:       100%;
+    width:        50%;
+    left:         98%;
+    background-color: lightblue;
+    opacity:      90%;
+    // overflow-y: scroll;         /* Overflow breaks the close button :-P */
+}
+
+#details-panel #close-button {
+    position:      absolute;
+    display:       none;
+    top:           50%;
+    left:          -25px;
+    padding:       10px;
+    border:        1px solid black;
+    border-radius: 50%;
+    width:         40px;
+    height:        40px;
+    text-align:    center;
+    background-color: lightblue;
+}
+
+#detail-content {
+    overflow-x:  hidden;
+    width:       90%;
+    margin-left: 5%;
+
+}
+
+#details-content #screenshot img {
+    width: 50%;
+}
+
+#detail-content #essay {
+    text-align: justify;
+}
+
+#detail-content #code {
+    font-family: fixed;
+    background-color: aliceblue;
 }
