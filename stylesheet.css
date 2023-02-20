@@ -26,6 +26,7 @@ body {
     left:         98%;
     background-color: lightblue;
     opacity:      90%;
+    box-shadow:   0 0 30px grey;
 }
 
 #details-panel #close-button {
