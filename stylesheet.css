@@ -1,6 +1,7 @@
 body {
     background-color: #DCD6F7;
     margin: 0;
+    overflow-x: hidden;
 }
 
 #explorations {
@@ -20,19 +21,18 @@ body {
 #details-panel {
     position:     absolute;
     transition:   0.2s;
-    height:       100%;
+    min-height:   100%;
     width:        50%;
     left:         98%;
     background-color: lightblue;
     opacity:      90%;
-    // overflow-y: scroll;         /* Overflow breaks the close button :-P */
 }
 
 #details-panel #close-button {
-    position:      absolute;
+    position:      fixed;
     display:       none;
     top:           50%;
-    left:          -25px;
+    margin-left:   -25px;
     padding:       10px;
     border:        1px solid black;
     border-radius: 50%;
