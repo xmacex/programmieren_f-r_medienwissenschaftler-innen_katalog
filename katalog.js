@@ -1,25 +1,25 @@
 var explorations = function ( p ) {
     p.setup = function() {
-        p.createCanvas(400, 400);
+        p.createCanvas(p.windowWidth*0.6, p.windowHeight);
         console.log("p5.js starting")
         explorations = [];
         for(let i=0; i<= 3; i++) {
-            // explorations.push(new p.Exploration(i, 50+i*40, 100+i*30));
-            explorations.push(new p.Exploration(i, p.random(15, p.width-15), p.random(15, p.height-15)));
+            explorations.push(new p.Exploration(i,
+                                                p.random(30, p.width-30),
+                                                p.random(30, p.height-30)));
         }
     }
 
     p.draw = function() {
-        // p.background(230);
         p.background(p.color("#DCD6F7"))
         explorations.forEach((e, i) => {
-            e.move();
+            e.update();
             e.draw();
         });
     }
 
     p.mousePressed = function() {
-        explorations.forEach(e => e.fill = "white");
+        explorations.forEach(e => e.selected = false);
         explorations.forEach(e => e.clicked());
     }
 
@@ -27,29 +27,44 @@ var explorations = function ( p ) {
         this.i = i;
         this.x = x;
         this.y = y;
-        this.fill = "white";
+        this.r = p.random(0, 5);
+        this.selected = false;
 
         this.clicked = function() {
             var d = p.dist(p.mouseX, p.mouseY, this.x, this.y);
-            if (d < 30/2) {
-                console.log("klik");
-                this.fill = "red";
+            if (d < 15) {
+                this.selected = true;
+                console.log("Selected " + this.i)
                 show_details(this.i);
             }
         }
 
+        this.update = function() {
+            this.resize();
+            this.move();
+        }
+
+        this.resize = function() {
+            this.r = (this.r + (p.frameCount % 100 / 300)) % 25;
+        }
+
         this.move = function() {
-            if (this.x > 15 && this.x < p.width-15) {
+            if (this.x > this.r && this.x < p.width-this.r) {
                 this.x = this.x + p.random(-1, 1);
             }
-            if (this.y > 15 && this.y < p.height-15) {
+            if (this.y > this.r && this.y < p.height-this.r) {
                 this.y = this.y + p.random(-1, 1);
             }
         }
 
         this.draw = function() {
-            p.fill(this.fill);
-            p.circle(this.x, this.y, 30);
+            p.noStroke();
+            if (this.selected) {
+                p.fill("red");
+            } else {
+                p.fill("white");
+            }
+            p.circle(this.x, this.y, this.r + 20);
             p.fill("black");
             p.textAlign(p.CENTER, p.CENTER);
             p.text(this.i, this.x, this.y);
