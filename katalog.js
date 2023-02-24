@@ -1,17 +1,18 @@
+const MAXSIZE = 25;
+
 var explorations = function ( p ) {
     p.setup = function() {
-        p.createCanvas(p.windowWidth*0.6, p.windowHeight);
+        p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.6);
         console.log("p5.js starting")
         explorations = [];
         for(let i=0; i<= 3; i++) {
-            explorations.push(new p.Exploration(i,
-                                                p.random(30, p.width-30),
-                                                p.random(30, p.height-30)));
+            explorations.push(new p.Exploration(i));
         }
     }
 
     p.draw = function() {
-        p.background(p.color("#DCD6F7"))
+        p.background(p.color("#A6B1E1"));
+        p.updateCursor();
         explorations.forEach((e, i) => {
             e.update();
             e.draw();
@@ -23,11 +24,30 @@ var explorations = function ( p ) {
         explorations.forEach(e => e.clicked());
     }
 
-    p.Exploration = function(i, x, y) {
+    p.updateCursor = function() {
+        var hovering = false;
+        explorations.forEach(e => {
+            if ((p.mouseX > e.x - e.r - 15)
+                && (p.mouseX < e.x + e.r + 15)
+                && (p.mouseY > e.y - e.r - 15)
+                && (p.mouseY < e.y + e.r + 15)) {
+                hovering = true;
+            }
+        });
+
+        if (hovering) {
+            p.cursor('pointer')
+        } else {
+            p.cursor();
+        }
+    }
+
+    p.Exploration = function(i) {
         this.i = i;
-        this.x = x;
-        this.y = y;
         this.r = p.random(0, 5);
+        this.x = p.random(this.r * 2, p.width - (this.r * 2));
+        this.y = p.random(this.r * 2, p.height - (this.r * 2));
+
         this.selected = false;
 
         this.clicked = function() {
@@ -45,14 +65,14 @@ var explorations = function ( p ) {
         }
 
         this.resize = function() {
-            this.r = (this.r + (p.frameCount % 100 / 300)) % 25;
+            this.r = (this.r + (p.frameCount % 100 / 300)) % MAXSIZE;
         }
 
         this.move = function() {
-            if (this.x > this.r && this.x < p.width-this.r) {
+            if (this.x > (this.r * 2) && this.x < p.width-(this.r * 2)) {
                 this.x = this.x + p.random(-1, 1);
             }
-            if (this.y > this.r && this.y < p.height-this.r) {
+            if (this.y > (this.r * 2) && this.y < p.height-(this.r * 2)) {
                 this.y = this.y + p.random(-1, 1);
             }
         }
@@ -60,12 +80,16 @@ var explorations = function ( p ) {
         this.draw = function() {
             p.noStroke();
             if (this.selected) {
-                p.fill("red");
+                p.fill("#25316D");
             } else {
-                p.fill("white");
+                p.fill("#DCD6F7");
             }
             p.circle(this.x, this.y, this.r + 20);
-            p.fill("black");
+            if (this.selected) {
+                p.fill("#DCD6F7");
+            } else {
+                p.fill("#25316D");
+            }
             p.textAlign(p.CENTER, p.CENTER);
             p.text(this.i, this.x, this.y);
         }
