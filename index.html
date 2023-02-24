@@ -48,7 +48,8 @@
     </section>
 
     <script>
-      data = {
+      let DEV = false;
+      let data = {
           "0": {
               "name": "Exploration 0",
               "screenshot": "screenshot.png",
@@ -143,8 +144,8 @@ function draw_reveal(student) {
       }
       
       function show_details(exploration, event) {
-          console.log("Opening panel");
-          console.log(exploration);
+          if (DEV) {console.log("Opening panel");}
+          if (DEV) {console.log(exploration);}
           let panel = document.querySelector("#details-panel");
           panel.style.left="50%";
           let close_button = document.querySelector("#details-panel #close-button")
@@ -163,7 +164,7 @@ function draw_reveal(student) {
       }
       
       function close_details_overview(e) {
-          console.log("Closing panel");
+          if (DEV) {console.log("Closing panel");}
           let panel = document.querySelector("#details-panel");
           panel.style.left="98%";
           let close_button = document.querySelector("#details-panel #close-button")

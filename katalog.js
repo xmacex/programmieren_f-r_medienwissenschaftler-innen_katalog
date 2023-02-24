@@ -3,7 +3,7 @@ const MAXSIZE = 25;
 var explorations = function ( p ) {
     p.setup = function() {
         p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.6);
-        console.log("p5.js starting")
+        if (DEV) {console.log("p5.js katalog starting")}
         explorations = [];
         for(let i=0; i<= 3; i++) {
             explorations.push(new p.Exploration(i));
@@ -54,7 +54,7 @@ var explorations = function ( p ) {
             var d = p.dist(p.mouseX, p.mouseY, this.x, this.y);
             if (d < 15) {
                 this.selected = true;
-                console.log("Selected " + this.i)
+                if (DEV) {console.log("Selected " + this.i);}
                 show_details(this.i);
             }
         }
@@ -85,13 +85,16 @@ var explorations = function ( p ) {
                 p.fill("#DCD6F7");
             }
             p.circle(this.x, this.y, this.r + 20);
+
             if (this.selected) {
                 p.fill("#DCD6F7");
             } else {
                 p.fill("#25316D");
             }
-            p.textAlign(p.CENTER, p.CENTER);
-            p.text(this.i, this.x, this.y);
+            if (DEV){
+                p.textAlign(p.CENTER, p.CENTER);
+                p.text(this.i, this.x, this.y);
+            }
         }
     }
 }
