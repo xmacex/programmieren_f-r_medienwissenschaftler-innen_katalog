@@ -3,7 +3,7 @@ var hovering = false;
 
 var explorations = function ( p ) {
     p.setup = function() {
-        p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.9);
+        p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.6);
         if (DEV) {console.log("p5.js katalog starting")}
         explorations = [];
         for(let i=0; i<= 1; i++) { // Wow hardcoded number what is this?
