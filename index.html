@@ -41,9 +41,12 @@
       <button id="close-button" onclick="close_details_overview()">╳</button>
       <div id="detail-content">
         <div id="name"><h2>name</h2></div>
+        <div id="favorite-function"><p></p></div>
+        <div id="hated-function"><p></p></div>
         <div id="screenshot"><img src="" /></div>
         <div id="essay"></div>
         <div id="code"><pre><code class="language-javascript"></code></pre></div>
+        <div id="advice"><h3>Advice for future learners</h3><p></p></div>
       </div>
     </section>
 
@@ -153,6 +156,11 @@ function draw_reveal(student) {
 
           let name = document.querySelector("#details-panel #name h2");
           name.textContent = data[exploration].name;
+          let favorite_function = document.querySelector("#details-panel #favorite-function p")
+          favorite_function.textContent = data[exploration].favorite_function;
+          let hated_function = document.querySelector("#details-panel #hated-function p")
+          hated_function.textContent = data[exploration].hated_function;
+
           let screenshot = document.querySelector("#details-panel #screenshot img")
           screenshot.src = data[exploration].screenshot;
           let essay = document.querySelector("#details-panel #essay");
@@ -161,6 +169,9 @@ function draw_reveal(student) {
           code.innerHTML = data[exploration].code;
           // Run highlight.js on it
           hljs.highlightAll();
+
+          let advice = document.querySelector("#details-panel #advice p")
+          advice.textContent = data[exploration].advice;
       }
       
       function close_details_overview(e) {

@@ -1,22 +1,25 @@
-const MAXSIZE = 25;
+const MAXSIZE = 100;
+var hovering = false;
 
 var explorations = function ( p ) {
     p.setup = function() {
-        p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.6);
+        p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.9);
         if (DEV) {console.log("p5.js katalog starting")}
         explorations = [];
-        for(let i=0; i<= 3; i++) {
+        for(let i=0; i<= 1; i++) { // Wow hardcoded number what is this?
             explorations.push(new p.Exploration(i));
         }
     }
 
     p.draw = function() {
         p.background(p.color("#A6B1E1"));
+        p.checkHovering();
         p.updateCursor();
         explorations.forEach((e, i) => {
             e.update();
             e.draw();
         });
+        p.showAdviceMaybe();
     }
 
     p.mousePressed = function() {
@@ -24,21 +27,31 @@ var explorations = function ( p ) {
         explorations.forEach(e => e.clicked());
     }
 
-    p.updateCursor = function() {
-        var hovering = false;
+    p.checkHovering = function () {
+        hovering = false;
         explorations.forEach(e => {
             if ((p.mouseX > e.x - e.r - 15)
                 && (p.mouseX < e.x + e.r + 15)
                 && (p.mouseY > e.y - e.r - 15)
                 && (p.mouseY < e.y + e.r + 15)) {
-                hovering = true;
+                hovering = e;
             }
         });
+    }
 
+    p.updateCursor = function() {
         if (hovering) {
             p.cursor('pointer')
         } else {
             p.cursor();
+        }
+    }
+
+    p.showAdviceMaybe = function() {
+        if (hovering) {
+            p.textSize(15)
+            let advice = '💬 „' + data[hovering.i].advice + '”'
+            p.text(advice, p.mouseX+10, p.mouseY+10, 200);
         }
     }
 
@@ -65,7 +78,7 @@ var explorations = function ( p ) {
         }
 
         this.resize = function() {
-            this.r = (this.r + (p.frameCount % 100 / 300)) % MAXSIZE;
+            this.r = (this.r + (p.frameCount % 100 / 100)) % MAXSIZE;
         }
 
         this.move = function() {

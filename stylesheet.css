@@ -75,8 +75,32 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-#details-content #screenshot img {
-    width: 50%;
+#detail-content #favorite-function p::before {
+    content: "👍 ";
+    filter: grayscale(100%);
+    filter: contrast(0);
+    filter: brightness(0);
+}
+
+#detail-content #favorite-function {
+    float: left;
+    width: 48%;
+}
+
+#detail-content #hated-function p::before {
+    content: "👎 ";
+    filter: grayscale(100%);
+    filter: contrast(0);
+    filter: brightness(0);
+}
+
+#detail-content #hated-function {
+    float: right;
+    width: 48%;
+}
+
+#detail-content #screenshot img {
+    width: 100%;
 }
 
 #detail-content #essay {
