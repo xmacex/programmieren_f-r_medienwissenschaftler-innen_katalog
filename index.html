@@ -54,97 +54,174 @@
       let DEV = false;
       let data = {
           "0": {
-              "name": "Exploration 0",
-              "screenshot": "screenshot.png",
-              "essay": `<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-          <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>`,
-              "code": `const DEBUG = true;
+              "name": "kati",
+              "screenshot": "screenshots/kati.png",
+              "essay": `<p>//introduction<br>
+'unicorn' is supposed to be a little game but i don't have the programming skills for that so far. so for now i integrated some lower level interactivity to have a visual sketch of how the game might look like in the future and used this one to explore functions, to write more organized code (you can see some older version if you scroll down), and to just mess around a bit with trashy designs.</p>
+<p>//development<br>
+the visual part of the game didn't develop that much during the process of programming. i focused more on developing the code a bit, working with functions and stuff.</p>
+<p>//myInterests<br>
+to me it seemed interesting to try something interactive as i didn't focus on that before. also i find it quite interesting to think about the interaction of technology/software and humans. i guess there is also interaction with programs i wouldn't think of as "interactive" straightaway but i wanted to foreground the interactivity a bit here.</p>
 
-present_students = [
-  "Student A",
-  "Student B",
-  "Student C"
-];
+<p>//mediaPraxis<br>
+my media praxis regarding computer software developed on various layers. i would say that software became vivid to me in a way. before i was thinking of software as technology, programming skills as qualification, and studying as a very linear process. instead i discovered a creative space and found myself reading, writing, watching, trying, exploring, leaving, learning, cherishing, returning, enjoying, retrying, understanding. also i was having a lot of fun - didn't expect that beforehand.</p>
 
-shapes = [0.30, 0.30, 0.50, 0.10, 0.40, 0.60, 0.30, 0.25];
+<p>//future<br>
+the end of this seminar feels more like the start of my curiosity. now as i've collected the different impressions from the topics we've been talking/thinking/etc. about and some basic programming skills, i'd love to explore in different directions. special interests atm: more complex movements in visualization (i guess there'll be some maths involved in this part), creating sound (i mean i love techno and how cool would it be to create some sounds/noises myself? - super cool!), maybe exploring possible relations between sounds and visuals, more complex interaction, and also thinking and reading about software and humans and society. e.g. how software reinforces social patterns, or technology and feminism. i think there are some interesting intersections to social sciences there. </p>`,
+              "code": `let unicorn;
+let piranha;
 
-next = null;
-noisyness = 0;
+let jump;
+
+function preload() {
+  unicorn = loadImage("unicorn.png");
+  piranha = loadImage("πranha.png");
+}
 
 function setup() {
-  createCanvas(400, 400);
-  textFont("Georgia");
+  createCanvas(800, 400);
 }
 
 function draw() {
-  background(40);
-  update_noise();
-  draw_noise(noisyness);
-  draw_motif();
-  draw_reveal(next);
-  stroke(50);
-}
+  background(220);
+  noStroke();
+  //sky
+  fill(200, 130, 85);
+  rect(0, 0, width, height);
+  //ground
+  fill(130, 65, 200);
+  rect(0, height - height * 0.2, width, height * 0.25);
+  //lake
+  fill(85, 150, 150);
+  rect(width * 0.7, height - height * 0.2, width * 0.35, height * 0.25);
 
-function choose_one(roster) {
-  shuffle(roster, true);
-  the_chosen_one = roster.pop();
-  if (DEBUG) {print("Next is " + the_chosen_one);}
-  if (DEBUG) {print("Left are "+ roster);}
-  return the_chosen_one;
-}
-
-function mouseClicked() {
-  next = choose_one(present_students);
-  noisyness = 10000;
-}
-
-function update_noise() {
-  if (noisyness > 0) {
-    noisyness = noisyness - 100;
+  if(mouseX >= width) {
+    gameOver();
+  } else if(mouseX >= width * 0.65) {
+    piranhaJumps();
+  } else {
+    if(jump) {
+      unicornJumps();
+      piranhaSwims();
+    } else {
+      unicornWalks();
+      piranhaSwims();
+    }
   }
 }
 
-function draw_motif() {
-  push();
-  translate(width/2, height/2);
-  blendMode(EXCLUSION);
-  shapes.forEach(s => {
-    fill(color(30, 30, 10, 125));
-    noStroke();
-    rotate(frameCount/400 * s);
-    size = width * s;
-    rect(-size/2, -size/2, size, size);
-  })
-  pop();
+function unicornJumps() {
+  image(unicorn, mouseX, height * 0.45, height * 0.15, height * 0.15);
+}
+function unicornWalks() {
+  image(unicorn, mouseX, height * 0.65, height * 0.15, height * 0.15);
+}
+function piranhaJumps() {
+  image(piranha, mouseX, height * 0.65, height * 0.15, height * 0.15);
+}
+function piranhaSwims() {
+  image(piranha, width * 0.8, height * 0.825, height * 0.15, height * 0.15);
+}
+function gameOver() {
+  textSize(53);
+  stroke(0);
+  strokeWeight(5);
+  textStyle(BOLD);
+  textAlign("center");
+  text("Game Over", width * 0.25, height * 0.25, width * 0.5, height * 0.25);
 }
 
-function draw_noise(noisyness) {
-  stroke("white");
-  for(let i=0; i<noisyness; i++) {
-    point(random(width), random(height));
-  }
+function mousePressed() {
+  jump = true;
 }
-
-function draw_reveal(student) {
-  if (next) {
-    translate(width/2, height/2);
-    fill("white");
-    textSize(40);
-    textAlign(CENTER, CENTER);
-    text(student, 0, 0);
-  }
-}`
+function mouseReleased() {
+  jump = false;
+}`,
+              "favorite_function": "random()",
+              "hated_function": "arc() -> got totally lost here mathematically",
+              "advice": "Try to accept to not understand everything you're doing right away, things will become clear later."
           },
           "1": {
-              "name": "Exploration 1"
-          },
-          "2": {
-              "name": "Exploration 2"
-          },
-          "3": {
-              "name": "Exploration 3"
-          }
-      }
+              "name": "Joshua",
+              "screenshot": "screenshots/joshua.png",
+              "essay": `<p>The program uses iteration to chain circles together. Each circle, the central one excluded, is centered on the edge of the previous circle. Each frame, the position of the linked circles is updated to wander along the edges. I got the idea when we talked about animation in class: would it be not interesting to move an object in dependence of another object's position? Then, I used what we learned about lists and loops to make a chain of those dependencies.</p>
+
+<p>For me, it is hard to describe how my "media praxis" developed. Since I have always been a computer person, I felt like the seminar did advance my theoretical understanding. I had troubles finding connecting factors between my prior knowledge and the "textual work" of the media studies. This has become much easier for me.</p>`,
+              "code": `// Array holding the circles
+let circles = [];
+
+// Number of circles
+let num_circles = 5;
+
+let diameter = 512; // base size
+let shrink = 0.5; // relative size: 0.5 means the next circle's diameter is half big as the current one
+let baseSpeed = 0.00003; // how fast the animation plays
+let speedScale = 3; // relative speed
+let weight = 3; // how thick the cirlce's lines are
+let lineColors = []; // fill later
+
+let rad = 0; // start position
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  // there have to be as many colors as there are circles
+  lineColors.push(color("lime"));
+  lineColors.push(color("yellow"));
+  lineColors.push(color("cyan"));
+  lineColors.push(color("violet"));
+  lineColors.push(color("red"));
+
+  // put the first circle in the center
+  if (num_circles > 0)
+    circles.push([windowWidth / 2, windowHeight / 2, diameter, baseSpeed]);
+
+  // start with 1 since the first circle already is in the array
+  for (i = 1; i < num_circles; ++i) {
+    let p = i - 1;
+    let pRadius = circles[p][2] * shrink;
+    circles.push([
+      circles[p][0] + pRadius,
+      circles[p][1],
+      pRadius,
+      circles[p][3] * speedScale,
+    ]);
+  }
+}
+
+function draw() {
+  background(0);
+
+  // Style options
+  noFill();
+  stroke(lineColors[0]);
+  strokeWeight(weight);
+
+  // update the position offset
+  rad = rad + deltaTime;
+
+  // draw the central circle
+  circle(circles[0][0], circles[0][1], circles[0][2]);
+  
+  // draw every other circle; start at index 1 because the first circle is already drawn
+  for (i = 1; i < num_circles; ++i) {
+    stroke(lineColors[i]);
+    let previous = circles[i - 1];
+    // calculate the x-coordinate based on the previous circle
+    circles[i][0] =
+      previous[0] + (previous[2] / 2) * Math.sin(previous[3] * rad * Math.PI);
+    // calculate the y-coordinate based on the previous circle
+    circles[i][1] =
+      previous[1] + (previous[2] / 2) * Math.cos(previous[3] * rad * Math.PI);
+    //draw the circle
+    circle(circles[i][0], circles[i][1], circles[i][2]);
+  }
+}`,
+              "favorite_function": "Math.random()",
+              "hated_function": "the whole p5.sound library, because it discards everything that makes p5js good and also other environments like supercollider or foxdot are much more intuitive",
+              "advice": "Do something you like! Programming is essentially like writing in this sense."
+          }}
+      
       
       function show_details(exploration, event) {
           if (DEV) {console.log("Opening panel");}
