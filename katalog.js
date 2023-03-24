@@ -30,10 +30,10 @@ var explorations = function ( p ) {
     p.checkHovering = function () {
         hovering = false;
         explorations.forEach(e => {
-            if ((p.mouseX > e.x - e.r - 15)
-                && (p.mouseX < e.x + e.r + 15)
-                && (p.mouseY > e.y - e.r - 15)
-                && (p.mouseY < e.y + e.r + 15)) {
+            if ((p.mouseX > e.x - e.r - MAXSIZE/4)
+                && (p.mouseX < e.x + e.r + MAXSIZE/4)
+                && (p.mouseY > e.y - e.r - MAXSIZE/4)
+                && (p.mouseY < e.y + e.r + MAXSIZE/4)) {
                 hovering = e;
             }
         });
@@ -65,7 +65,7 @@ var explorations = function ( p ) {
 
         this.clicked = function() {
             var d = p.dist(p.mouseX, p.mouseY, this.x, this.y);
-            if (d < 15) {
+            if (d < MAXSIZE) {
                 this.selected = true;
                 if (DEV) {console.log("Selected " + this.i);}
                 show_details(this.i);
