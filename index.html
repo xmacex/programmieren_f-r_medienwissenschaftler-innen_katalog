@@ -45,7 +45,8 @@
         <div id="name"><h2>name</h2></div>
         <div id="favorite-function"><p></p></div>
         <div id="hated-function"><p></p></div>
-        <div id="screenshot"><img src="" /></div>
+        <div id="screenshot"><a target="_blank"><img src="" /></a></div>
+        <div id="url"><a></a></div>
         <div id="essay"></div>
         <div id="code"><pre><code class="language-javascript"></code></pre></div>
         <div id="advice"><h3>Advice for future learners</h3><p></p></div>
@@ -57,6 +58,7 @@
       let data = {
           "0": {
               "name": "kati",
+              "url": "https://editor.p5js.org/goitoacr/sketches/x3d0LViSk",
               "screenshot": "screenshots/kati.png",
               "essay": `<p>//introduction<br>
 'unicorn' is supposed to be a little game but i don't have the programming skills for that so far. so for now i integrated some lower level interactivity to have a visual sketch of how the game might look like in the future and used this one to explore functions, to write more organized code (you can see some older version if you scroll down), and to just mess around a bit with trashy designs.</p>
@@ -145,6 +147,7 @@ function mouseReleased() {
           },
           "1": {
               "name": "Joshua",
+              "url": "https://editor.p5js.org/jawshua/sketches/tQ6awIXmQ",
               "screenshot": "screenshots/joshua.png",
               "essay": `<p>The program uses iteration to chain circles together. Each circle, the central one excluded, is centered on the edge of the previous circle. Each frame, the position of the linked circles is updated to wander along the edges. I got the idea when we talked about animation in class: would it be not interesting to move an object in dependence of another object's position? Then, I used what we learned about lists and loops to make a chain of those dependencies.</p>
 
@@ -240,8 +243,13 @@ function draw() {
           let hated_function = document.querySelector("#details-panel #hated-function p")
           hated_function.textContent = data[exploration].hated_function;
 
-          let screenshot = document.querySelector("#details-panel #screenshot img")
+          let screenshot = document.querySelector("#details-panel #screenshot img");
           screenshot.src = data[exploration].screenshot;
+          let screenshot_link = document.querySelector("#details-panel #screenshot a");
+          screenshot_link.href = data[exploration].url;
+          let url = document.querySelector("#details-panel #url a");
+          url.innerText = data[exploration].url;
+          url.href = data[exploration].url;
           let essay = document.querySelector("#details-panel #essay");
           essay.innerHTML = data[exploration].essay;
           let code = document.querySelector("#details-panel #code code");
