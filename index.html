@@ -225,9 +225,79 @@ function draw() {
               "favorite_function": "Math.random()",
               "hated_function": "the whole p5.sound library, because it discards everything that makes p5js good and also other environments like supercollider or foxdot are much more intuitive",
               "advice": "Do something you like! Programming is essentially like writing in this sense."
-          }}
-      
-      
+          },
+                  "2": {
+                  "name": "Gülce",
+                  "url": "https://editor.p5js.org/gulcezey/sketches/XYPSz2GsJ",
+                  "screenshot": "screenshots/gülce.png",
+                  "essay": `<p>This is a photo booth that I created. My inspiration came from the idea that we could upload images onto p5js. Also I knew that things could be randomized and changed with the click of a button. Then I decided to combine this and create a photo booth like environment. I find this interesting because I always liked the of photo booths and changing backgrounds. Although in the end I didn't incorporate a camera I still thing this code is fun.</p>
+<p>This media praxis helped me to understand that you don't need fancy and expensive tools like photoshop for basic shape driven art. You can create abstract pieces or create posters, magazine covers with this. In the future if I am not subscribed to any of those programs, I would definitely use coding to create digital media. Because software is now becoming widely available because of open source coding I think people will be more inclined to create their own code for certain things. This reminds me of how people use to make their own radios. I think it is going to be like that. Maybe it is like that now but I was able to discover that through media praxis.</p> `,
+                  "code": `
+let images = [];
+let selectedImage;
+
+function preload() {
+  let imagePaths = [
+    "Christmas.png",
+    "Spongebob.png",
+    "funny-7.jpeg",
+    "goodplace.jpeg",
+    "island.jpg",
+    "office.png",
+    "windows.jpg",
+    "funny-5.jpeg",
+    "funny.jpg",
+  ];
+
+  for (let i = 0; i < imagePaths.length; i++) {
+    images[i] = loadImage(imagePaths[i]);
+  }
+}
+
+function setup() {
+  createCanvas(720, 400);
+
+  selectedImage = random(images);
+}
+
+function draw() {
+  background(255);
+
+  if (selectedImage) {
+    image(selectedImage, 0, 0, width, height);
+  }
+
+  //person
+  stroke("white");
+  fill("white");
+  circle(360, 150, 150);
+  ellipse(360, 400, 200, 400);
+}
+
+function keyPressed() {
+  if (keyCode === 32) {
+    selectedImage = random(images);
+  }
+}`,
+                  "favorite_function": "draw()",
+                  "hated_function": "background() because it doesn't allow arrays even if they are images",
+                  "advice": "Keep practicing you will get the hang of it eventually, if not just ask for help."
+                  },
+                  /*
+                  "": {
+                  "name": "",
+                  "url": "",
+                  "screenshot": "",
+                  "essay": ``,
+                  "code": ``,
+                  "favorite_function": "",
+                  "hated_function": "",
+                  "advice": ""
+                  },
+                  */
+
+      }
+
       function show_details(exploration, event) {
           if (DEV) {console.log("Opening panel");}
           if (DEV) {console.log(exploration);}
