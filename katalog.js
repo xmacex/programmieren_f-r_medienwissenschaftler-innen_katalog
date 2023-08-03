@@ -6,7 +6,7 @@ var explorations = function ( p ) {
         p.createCanvas(p.windowWidth*0.6, p.windowHeight*0.6);
         if (DEV) {console.log("p5.js katalog starting")}
         explorations = [];
-        for(let i=0; i<= 2; i++) { // Wow hardcoded number what is this?
+        for(let i=0; i<= 3; i++) { // Wow hardcoded number what is this?
             explorations.push(new p.Exploration(i));
         }
     }

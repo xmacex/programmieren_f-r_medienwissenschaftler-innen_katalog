@@ -38,7 +38,7 @@
 
     <section id="explorations">
     </section>
-    
+
     <section id="details-panel">
       <button id="close-button" onclick="close_details_overview()">╳</button>
       <div id="detail-content">
@@ -207,7 +207,7 @@ function draw() {
 
   // draw the central circle
   circle(circles[0][0], circles[0][1], circles[0][2]);
-  
+
   // draw every other circle; start at index 1 because the first circle is already drawn
   for (i = 1; i < num_circles; ++i) {
     stroke(lineColors[i]);
@@ -283,10 +283,140 @@ function keyPressed() {
                   "hated_function": "background() because it doesn't allow arrays even if they are images",
                   "advice": "Keep practicing you will get the hang of it eventually, if not just ask for help."
                   },
+
+
+
+
+
+
+
+
+
+                      "3": {
+                  "name": "sirene",
+                  "url": "https://editor.p5js.org/iremcanbolat/sketches/3u3EqYgEq",
+                  "screenshot": "screenshots/sirene.png",
+                  "essay": `<p>While developing this program, I drew inspiration from the heart-shaped logo of the brand 'Comme des Garçons,' which has always captivated my interest. I aimed to create a cute and playful version, as I have a fondness for heart shapes in general. To introduce dynamic elements to the image, I incorporated blinking hearts, resulting in the final design. During the implementation, I transformed the ellipses used in the lesson into triangles to craft the heart shapes. Additionally, I added ellipses to represent eyes within each heart. To achieve a pop art aesthetic, I ensured that each heart perfectly fit inside a square of equal size, resulting in the distinct appearance observed in the final result.</p>
+<p>Initially, p5.js seemed confusing because I hadn't encountered such a programming language before. But as I grasped the concepts, I started to understand what I was doing. p5.js changed my perspective on programming because I didn't know we could create designs by writing code. In the past, when I saw digital media online, I thought it was easy, but this lesson made me realize it's not that simple. Now, I stop and think about how those images are made. This course has given me a new way of looking at things.</p>
+<p>I believe learning different coding languages will be beneficial for my future because we use computer programs for many tasks nowadays. I can easily apply what I've learned in this course to my future work. Thanks to the information I gained here, I feel more confident about using it in my future design projects.</p>`,
+                  "code": `let eyeHeight = 100;
+let counter = 0;
+let eyesClosed = false;
+
+function setup() {
+  createCanvas(950, 950);
+  background("#4F1A58");
+  noStroke();
+  fill("#E91E63");
+  ellipse(125, 135, 200, 200);
+  ellipse(275, 135, 200, 200);
+  triangle(200, 389, 48.8, 200, 351.4, 200);
+
+  ellipse(805, 135, 200, 200);
+  ellipse(655, 135, 200, 200);
+  triangle(725, 389, 580, 200, 880, 200);
+
+  ellipse(125, 650, 200, 200);
+  ellipse(275, 650, 200, 200);
+  triangle(200, 900, 38, 700, 365.9, 693);
+
+  ellipse(805, 650, 200, 200);
+  ellipse(655, 650, 200, 200);
+  triangle(730, 900, 568, 700, 896.1, 693);
+
+
+
+
+
+}
+
+function draw() {
+  counter = counter + deltaTime;
+
+  if (eyesClosed && counter > 200) {
+    eyeHeight = 100;
+    eyesClosed = false;
+    counter = 0;
+  } else if (counter > 2000) {
+    eyeHeight = 60;
+    eyesClosed = true;
+    counter = 0;
+  }
+  //left eye
+  fill(240);
+  ellipse(100, 125, 100, eyeHeight);
+
+  fill(240);
+  ellipse(630, 125, 100, eyeHeight);
+
+  fill(240);
+  ellipse(105, 650, 100, eyeHeight);
+
+   fill(240);
+  ellipse(645, 650, 100, eyeHeight);
+
+
+
+
+  // left pupil
+  fill(0);
+  ellipse(100, 125, 50, eyeHeight / 2);
+
+  fill(0);
+  ellipse(630, 125, 50, eyeHeight / 2);
+
+
+  fill(0);
+  ellipse(105, 650, 50, eyeHeight / 2);
+
+  fill(0);
+  ellipse(648, 650, 50, eyeHeight / 2);
+
+
+
+
+
+
+  // right eye
+  fill(240);
+  ellipse(295, 125, 100, eyeHeight);
+
+  fill(240);
+  ellipse(825, 125, 100, eyeHeight);
+
+  fill(240);
+  ellipse(295, 650, 100, eyeHeight);
+
+  fill(240);
+  ellipse(825, 650, 100, eyeHeight);
+
+
+
+  // right pupil
+  fill(0);
+  ellipse(295, 125, 50, eyeHeight / 2);
+
+  fill(0);
+  ellipse(825, 125, 50, eyeHeight / 2);
+
+
+  fill(0);
+  ellipse(295, 650, 50, eyeHeight / 2);
+
+
+  fill(0);
+  ellipse(825, 650, 50, eyeHeight / 2);
+}`,
+                  "favorite_function": "if statement",
+                  "hated_function": "random",
+                  "advice": "Do not give up; continue to put what you are learning into practice."
+                  },
+
                   /*
                   "": {
                   "name": "",
-                  "url": "",
+                  "url":
+                  "",
                   "screenshot": "",
                   "essay": ``,
                   "code": ``,
@@ -330,7 +460,7 @@ function keyPressed() {
           let advice = document.querySelector("#details-panel #advice p")
           advice.textContent = data[exploration].advice;
       }
-      
+
       function close_details_overview(e) {
           if (DEV) {console.log("Closing panel");}
           let panel = document.querySelector("#details-panel");
