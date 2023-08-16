@@ -433,7 +433,7 @@ function draw() {
           if (DEV) {console.log("Opening panel");}
           if (DEV) {console.log(exploration);}
           let panel = document.querySelector("#details-panel");
-          panel.style.left="50%";
+          panel.style.width="50%";
           let close_button = document.querySelector("#details-panel #close-button")
           close_button.style.display = "block";
 
@@ -465,7 +465,7 @@ function draw() {
       function close_details_overview(e) {
           if (DEV) {console.log("Closing panel");}
           let panel = document.querySelector("#details-panel");
-          panel.style.left="98%";
+          panel.style.width = "1em";
           let close_button = document.querySelector("#details-panel #close-button")
           close_button.style.display = "none";
       }
